@@ -22,7 +22,7 @@ done
 
 if [ -z "${failedVersions}" ]; then
   echo "Compatibility is OK :)"
-  echo "Veridied Versions: ${targetVersions}"
+  echo "Verified Versions: ${targetVersions}"
   exit 0
 else
   echo "Compatibility is NG :("
