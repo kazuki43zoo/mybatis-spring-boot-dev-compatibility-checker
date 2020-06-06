@@ -1,5 +1,24 @@
 #!/bin/bash
 
+function getLatestMaintenanceVersion() {
+  local targetMinorVersion=$1
+  local maintenanceVersions=""
+  local majorVersion=${targetMinorVersion%.*}
+  local minorVersion=${targetMinorVersion#*.}
+  while read -r line; do
+    if [[ "${line}" == *BUILD* ]]; then
+      local maintenanceVersion=${line#<a*>${targetMinorVersion}.} && maintenanceVersion=${maintenanceVersion%.*}
+      local prefix=".BUILD"
+    else
+      local maintenanceVersion=${line#<a*>${targetMinorVersion}.} && maintenanceVersion=${maintenanceVersion%%-*}
+    fi
+    maintenanceVersions="${maintenanceVersions}${maintenanceVersion}"$'\n'
+  done<<END
+    $(curl -s "https://repo.spring.io/snapshot/org/springframework/boot/spring-boot/" | grep "SNAPSHOT" | grep -E ">${majorVersion}\.${minorVersion}\.[0-9]*")
+END
+  echo "${targetMinorVersion}.$(echo "${maintenanceVersions}" | sort -n | tail -n 1)${prefix}-SNAPSHOT"
+}
+
 rm -rf target
 mkdir target
 pushd target || exit
@@ -8,24 +27,31 @@ git clone https://github.com/mybatis/spring-boot-starter.git
 
 pushd spring-boot-starter || exit
 
-targetVersions="2.4.0-SNAPSHOT 2.3.1.BUILD-SNAPSHOT 2.2.8.BUILD-SNAPSHOT 2.1.15.BUILD-SNAPSHOT"
+TARGET_MINOR_VERSIONS="2.4 2.3 2.2 2.1"
 
-for targetVersion in ${targetVersions}; do
-  if [[ "${targetVersion}" == 2.1.* ]]; then
+for targetMinorVersion in ${TARGET_MINOR_VERSIONS}; do
+  if [[ "${targetMinorVersion}" == 2.1 ]]; then
     options="-Dspring-boot.version.line=2.1.x"
   fi
-  ./mvnw clean verify -Dspring-boot.version=${targetVersion} -Denforcer.skip=true ${options} && ./mybatis-spring-boot-samples/run_fatjars.sh && exitCode=0 || exitCode=$?
-  if [ ! "${exitCode}" = 0 ]; then
-    failedVersions="${failedVersions}${targetVersion} "
+  latestSnapshotVersion=$(getLatestMaintenanceVersion "${targetMinorVersion}")
+  verifiedVersions="${verifiedVersions}${latestSnapshotVersion} "
+  ./mvnw clean verify -Dspring-boot.version=${latestSnapshotVersion} -Denforcer.skip=true ${options} && ./mybatis-spring-boot-samples/run_fatjars.sh && exitCode=0 || exitCode=$?
+  if [ "${exitCode}" = "0" ]; then
+    successedVersions="${successedVersions}${latestSnapshotVersion} "
+  else
+    failedVersions="${failedVersions}${latestSnapshotVersion} "
   fi
 done
 
 if [ -z "${failedVersions}" ]; then
   echo "Compatibility is OK :)"
-  echo "Verified Versions: ${targetVersions}"
+  echo "Verified Versions: ${successedVersions}"
   exit 0
 else
   echo "Compatibility is NG :("
+  if [ ! "${successedVersions}" = "" ]; then
+    echo "Successed Versions: ${successedVersions}"
+  fi
   echo "Failed Versions: ${failedVersions}"
   exit 1
 fi
