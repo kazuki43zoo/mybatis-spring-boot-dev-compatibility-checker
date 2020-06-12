@@ -19,6 +19,17 @@ END
   echo "${targetMinorVersion}.$(echo "${maintenanceVersions}" | sort -n | tail -n 1)${prefix}-SNAPSHOT"
 }
 
+TARGET_MINOR_VERSIONS="2.4 2.3 2.2 2.1"
+
+for targetMinorVersion in ${TARGET_MINOR_VERSIONS}; do
+  snapshotVersions="${snapshotVersions}$(getLatestMaintenanceVersion "${targetMinorVersion}")"$'\n'
+done
+
+echo "=================================="
+echo "     Target Snapshot Versions"
+echo "=================================="
+echo "${snapshotVersions}"
+
 rm -rf target
 mkdir target
 pushd target || exit
@@ -27,19 +38,16 @@ git clone https://github.com/mybatis/spring-boot-starter.git
 
 pushd spring-boot-starter || exit
 
-TARGET_MINOR_VERSIONS="2.4 2.3 2.2 2.1"
-
-for targetMinorVersion in ${TARGET_MINOR_VERSIONS}; do
-  if [[ "${targetMinorVersion}" == 2.1 ]]; then
+for targetSnapshotVersion in ${snapshotVersions}; do
+  if [[ "${targetSnapshotVersion}" == 2.1.* ]]; then
     options="-Dspring-boot.version.line=2.1.x"
   fi
-  latestSnapshotVersion=$(getLatestMaintenanceVersion "${targetMinorVersion}")
-  verifiedVersions="${verifiedVersions}${latestSnapshotVersion} "
-  ./mvnw clean verify -Dspring-boot.version=${latestSnapshotVersion} -Denforcer.skip=true ${options} && ./mybatis-spring-boot-samples/run_fatjars.sh && exitCode=0 || exitCode=$?
+  verifiedVersions="${verifiedVersions}${targetSnapshotVersion} "
+  ./mvnw clean verify -Dspring-boot.version=${targetSnapshotVersion} -Denforcer.skip=true ${options} && ./mybatis-spring-boot-samples/run_fatjars.sh && exitCode=0 || exitCode=$?
   if [ "${exitCode}" = "0" ]; then
-    successedVersions="${successedVersions}${latestSnapshotVersion} "
+    successedVersions="${successedVersions}${targetSnapshotVersion} "
   else
-    failedVersions="${failedVersions}${latestSnapshotVersion} "
+    failedVersions="${failedVersions}${targetSnapshotVersion} "
   fi
 done
 
