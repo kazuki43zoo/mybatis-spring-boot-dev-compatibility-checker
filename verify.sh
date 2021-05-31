@@ -39,6 +39,11 @@ git clone https://github.com/mybatis/spring-boot-starter.git
 pushd spring-boot-starter || exit
 
 for targetSnapshotVersion in ${snapshotVersions}; do
+  if [[ "${targetSnapshotVersion}" == 2.5.* ]]; then
+    git checkout master
+  else
+    git checkout 2.1.x
+  fi
   if [[ "${targetSnapshotVersion}" == 2.1.* ]]; then
     options="-Dspring-boot.version.line=2.1.x"
   fi
@@ -53,7 +58,7 @@ done
 
 if [ -z "${failedVersions}" ]; then
   echo "Compatibility is OK :)"
-  echo "Verified Versions: ${successedVersions}"
+  echo "Verified Versions: ${verifiedVersions}"
   exit 0
 else
   echo "Compatibility is NG :("
