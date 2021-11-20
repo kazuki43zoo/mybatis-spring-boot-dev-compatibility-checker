@@ -19,7 +19,7 @@ END
   echo "${targetMinorVersion}.$(echo "${maintenanceVersions}" | sort -n | tail -n 1)${prefix}-SNAPSHOT"
 }
 
-TARGET_MINOR_VERSIONS="2.5 2.4 2.3 2.2 2.1"
+TARGET_MINOR_VERSIONS="2.6 2.5 2.4 2.3"
 
 for targetMinorVersion in ${TARGET_MINOR_VERSIONS}; do
   snapshotVersions="${snapshotVersions}$(getLatestMaintenanceVersion "${targetMinorVersion}")"$'\n'
@@ -39,7 +39,7 @@ git clone https://github.com/mybatis/spring-boot-starter.git
 pushd spring-boot-starter || exit
 
 for targetSnapshotVersion in ${snapshotVersions}; do
-  if [[ "${targetSnapshotVersion}" == 2.5.* ]]; then
+  if [[ "${targetSnapshotVersion}" == 2.5.* ]] || [[ "${targetSnapshotVersion}" == 2.6.* ]]; then
     git checkout master
   else
     git checkout 2.1.x
