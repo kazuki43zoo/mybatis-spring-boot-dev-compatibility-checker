@@ -19,7 +19,7 @@ END
   echo "${targetMinorVersion}.$(echo "${maintenanceVersions}" | sort -n | tail -n 1)${prefix}-SNAPSHOT"
 }
 
-TARGET_MINOR_VERSIONS="2.6 2.5 2.4 2.3"
+TARGET_MINOR_VERSIONS="2.6 2.5 2.4 2.3 2.2"
 
 for targetMinorVersion in ${TARGET_MINOR_VERSIONS}; do
   snapshotVersions="${snapshotVersions}$(getLatestMaintenanceVersion "${targetMinorVersion}")"$'\n'
@@ -43,9 +43,6 @@ for targetSnapshotVersion in ${snapshotVersions}; do
     git checkout master
   else
     git checkout 2.1.x
-  fi
-  if [[ "${targetSnapshotVersion}" == 2.1.* ]]; then
-    options="-Dspring-boot.version.line=2.1.x"
   fi
   verifiedVersions="${verifiedVersions}${targetSnapshotVersion} "
   ./mvnw clean verify -Dspring-boot.version=${targetSnapshotVersion} -Denforcer.skip=true ${options} && ./mybatis-spring-boot-samples/run_fatjars.sh && exitCode=0 || exitCode=$?
