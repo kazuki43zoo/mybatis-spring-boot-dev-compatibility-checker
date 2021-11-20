@@ -9,6 +9,8 @@ Verify a compatibility of development version for mybatis-spring-boot and spring
 ## Java Target Versions
 
 * Java 8
+* Java 11
+* Java 17
 
 ## MyBatis Spring Boot Target Branches 
 
@@ -17,8 +19,8 @@ Verify a compatibility of development version for mybatis-spring-boot and spring
 
 ## Spring Boot Target Lines
 
-* 2.5.x (latest develop & stable version)
+* 2.6.x (latest develop & stable version)
+* 2.5.x (stable version)
 * 2.4.x
 * 2.3.x
 * 2.2.x
-* 2.1.x
