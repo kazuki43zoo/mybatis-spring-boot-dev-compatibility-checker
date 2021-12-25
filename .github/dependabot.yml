@@ -1,0 +1,12 @@
+version: 2
+updates:
+  - package-ecosystem: maven
+    directory: "/"
+    schedule:
+      interval: daily
+    labels:
+      - dependencies
+    ignore:
+      - dependency-name: org.apache.tomcat:tomcat
+        versions:
+          - "> 10.1.0"

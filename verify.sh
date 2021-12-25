@@ -19,7 +19,7 @@ END
   echo "${targetMinorVersion}.$(echo "${maintenanceVersions}" | sort -n | tail -n 1)${prefix}-SNAPSHOT"
 }
 
-TARGET_MINOR_VERSIONS="2.7 2.6 2.5 2.4 2.3 2.2"
+TARGET_MINOR_VERSIONS=${1-"2.7 2.6 2.5 2.4 2.3 2.2"}
 
 for targetMinorVersion in ${TARGET_MINOR_VERSIONS}; do
   snapshotVersions="${snapshotVersions}$(getLatestMaintenanceVersion "${targetMinorVersion}")"$'\n'
@@ -39,10 +39,13 @@ git clone https://github.com/mybatis/spring-boot-starter.git
 pushd spring-boot-starter || exit
 
 for targetSnapshotVersion in ${snapshotVersions}; do
-  if [[ "${targetSnapshotVersion}" == 2.5.* ]] || [[ "${targetSnapshotVersion}" == 2.6.* ]] || [[ "${targetSnapshotVersion}" == 2.7.* ]]; then
+  if [[ "${targetSnapshotVersion}" == 2.5.* ]] || [[ "${targetSnapshotVersion}" == 2.6.* ]] || [[ "${targetSnapshotVersion}" == 2.7.* ]] || [[ "${targetSnapshotVersion}" == 3.*.* ]]; then
     git checkout master
   else
     git checkout 2.1.x
+  fi
+  if [[ "${targetSnapshotVersion}" == 3.*.* ]]; then
+    options="-Danimal.sniffer.skip -Dtomcat.major.version=10 -Dtomcat.version=$(mvn -B -f ../../pom.xml help:evaluate -Dexpression=tomcat.version | grep -v '^\[')"
   fi
   verifiedVersions="${verifiedVersions}${targetSnapshotVersion} "
   ./mvnw clean verify -Dspring-boot.version=${targetSnapshotVersion} -Denforcer.skip=true ${options} && ./mybatis-spring-boot-samples/run_fatjars.sh && exitCode=0 || exitCode=$?

@@ -1,0 +1,30 @@
+name: CI with Spring Boot 3.x
+
+on:
+  push:
+    branches: [ master ]
+  schedule:
+    - cron: "0 0 * * *"
+    
+jobs:
+  build:
+    name: Test JDK ${{ matrix.java }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        java: [17]
+        distribution: ['zulu']
+      fail-fast: false
+      max-parallel: 1
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          java-version: ${{ matrix.java }}
+          distribution: ${{ matrix.distribution }}
+      - name: Show a Java version
+        run: java -version
+      - name: Verify a compatibility
+        run: ./verify.sh 3.0
