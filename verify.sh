@@ -19,7 +19,7 @@ END
   echo "${targetMinorVersion}.$(echo "${maintenanceVersions}" | sort -n | tail -n 1)${prefix}-SNAPSHOT"
 }
 
-TARGET_MINOR_VERSIONS=${1-"2.7 2.6 2.5 2.4 2.3 2.2"}
+TARGET_MINOR_VERSIONS=${1}
 
 for targetMinorVersion in ${TARGET_MINOR_VERSIONS}; do
   snapshotVersions="${snapshotVersions}$(getLatestMaintenanceVersion "${targetMinorVersion}")"$'\n'

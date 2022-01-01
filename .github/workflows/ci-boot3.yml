@@ -8,13 +8,14 @@ on:
     
 jobs:
   build:
-    name: Test JDK ${{ matrix.java }}
+    name: Test with ${{ matrix.spring-boot-version }} on JDK ${{ matrix.java }}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         os: [ubuntu-latest]
         java: [17]
         distribution: ['zulu']
+        spring-boot-version: [3.0]
       fail-fast: false
       max-parallel: 1
     steps:
@@ -27,4 +28,4 @@ jobs:
       - name: Show a Java version
         run: java -version
       - name: Verify a compatibility
-        run: ./verify.sh 3.0
+        run: ./verify.sh ${{ matrix.spring-boot-version }}
