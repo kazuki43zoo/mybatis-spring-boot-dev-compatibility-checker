@@ -15,7 +15,7 @@ jobs:
         os: [ubuntu-latest]
         java: [8, 11, 17]
         distribution: ['zulu']
-        spring-boot-version: ['2.7', '2.6', '2.5', '2.4', '2.3', '2.2']
+        spring-boot-version: ['2.7', '2.6', '2.5', '2.4', '2.3']
       fail-fast: false
       max-parallel: 3
     steps:
