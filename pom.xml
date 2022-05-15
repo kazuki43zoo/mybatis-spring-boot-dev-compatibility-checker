@@ -6,7 +6,7 @@
     <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <properties>
-        <tomcat.version>10.0.16</tomcat.version>
+        <tomcat.version>10.0.20</tomcat.version>
     </properties>
     <dependencyManagement>
         <dependencies>
