@@ -28,4 +28,4 @@ jobs:
       - name: Show a Java version
         run: java -version
       - name: Verify a compatibility
-        run: ./verify.sh ${{ matrix.spring-boot-version }}
+        run: ./verify.sh ${{ matrix.spring-boot-version }} ${{ matrix.java }}
