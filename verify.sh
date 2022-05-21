@@ -46,7 +46,7 @@ for targetSnapshotVersion in ${snapshotVersions}; do
     git checkout 2.1.x
   fi
   if [[ "${targetSnapshotVersion}" == 3.*.* ]]; then
-    options="-Danimal.sniffer.skip -Dtomcat.major.version=10 -Dtomcat.version=$(mvn -B -f ../../pom.xml help:evaluate -Dexpression=tomcat.version | grep -v '^\[')"
+    options="-Djava.version=17 -Danimal.sniffer.skip -Dtomcat.major.version=10 -Dtomcat.version=$(mvn -B -f ../../pom.xml help:evaluate -Dexpression=tomcat.version | grep -v '^\[')"
   fi
   verifiedVersions="${verifiedVersions}${targetSnapshotVersion} "
   ./mvnw clean verify -Djacoco.version=0.8.8 -Dspring-boot.version=${targetSnapshotVersion} -Denforcer.skip=true ${options} && ./mybatis-spring-boot-samples/run_fatjars.sh && exitCode=0 || exitCode=$?
