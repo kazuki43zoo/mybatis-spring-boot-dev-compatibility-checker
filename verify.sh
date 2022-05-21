@@ -49,7 +49,7 @@ for targetSnapshotVersion in ${snapshotVersions}; do
     options="-Djava.version=${JAVA_VERSION} -Danimal.sniffer.skip -Dtomcat.major.version=10 -Dtomcat.version=$(mvn -B -f ../../pom.xml help:evaluate -Dexpression=tomcat.version | grep -v '^\[')"
   fi
   verifiedVersions="${verifiedVersions}${targetSnapshotVersion} "
-  ./mvnw clean verify -Dspring-boot.version=${targetSnapshotVersion} -Denforcer.skip=true ${options} && ./mybatis-spring-boot-samples/run_fatjars.sh && exitCode=0 || exitCode=$?
+  ./mvnw clean verify -Djacoco.version=0.8.8 -Dspring-boot.version=${targetSnapshotVersion} -Denforcer.skip=true ${options} && ./mybatis-spring-boot-samples/run_fatjars.sh && exitCode=0 || exitCode=$?
   if [ "${exitCode}" = "0" ]; then
     successedVersions="${successedVersions}${targetSnapshotVersion} "
   else
