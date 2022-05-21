@@ -17,22 +17,28 @@ jobs:
         distribution: ['zulu']
         spring-boot-version: ['2.7', '2.6', '2.5']
         include:
-          - java: 8
+          - os: ubuntu-latest
+            java: 8
             distribution: 'zulu'
             spring-boot-version: '2.4'
-          - java: 11
+          - os: ubuntu-latest
+            java: 11
             distribution: 'zulu'
             spring-boot-version: '2.4'
-          - java: 17
+          - os: ubuntu-latest
+            java: 17
             distribution: 'zulu'
             spring-boot-version: '2.4'
-          - java: 8
+          - os: ubuntu-latest
+            java: 8
             distribution: 'zulu'
             spring-boot-version: '2.3'
-          - java: 11
+          - os: ubuntu-latest
+            java: 11
             distribution: 'zulu'
             spring-boot-version: '2.3'
-          - java: 17
+          - os: ubuntu-latest
+            java: 17
             distribution: 'zulu'
             spring-boot-version: '2.3'
       fail-fast: false
