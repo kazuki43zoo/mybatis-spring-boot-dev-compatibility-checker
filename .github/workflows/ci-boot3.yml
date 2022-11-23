@@ -13,7 +13,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        java: [17, 18, 19-ea]
+        java: [17, 18, 19]
         distribution: ['zulu']
         spring-boot-version: ['3.0']
       fail-fast: false
