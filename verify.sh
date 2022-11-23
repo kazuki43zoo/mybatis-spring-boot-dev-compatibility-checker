@@ -40,16 +40,15 @@ git clone https://github.com/mybatis/spring-boot-starter.git
 pushd spring-boot-starter || exit
 
 for targetSnapshotVersion in ${snapshotVersions}; do
-  if [[ "${targetSnapshotVersion}" == 2.5.* ]] || [[ "${targetSnapshotVersion}" == 2.6.* ]] || [[ "${targetSnapshotVersion}" == 2.7.* ]] || [[ "${targetSnapshotVersion}" == 3.*.* ]]; then
+  if [[ "${targetSnapshotVersion}" == 3.*.* ]]; then
+    git checkout 3.x
+  elif [[ "${targetSnapshotVersion}" == 2.5.* ]] || [[ "${targetSnapshotVersion}" == 2.6.* ]] || [[ "${targetSnapshotVersion}" == 2.7.* ]] || [[ "${targetSnapshotVersion}" == 3.*.* ]]; then
     git checkout master
   else
     git checkout 2.1.x
   fi
-  if [[ "${targetSnapshotVersion}" == 3.*.* ]]; then
-    options="-Djava.version=17 -Danimal.sniffer.skip -Dtomcat.major.version=10 -Dtomcat.version=$(mvn -B -f ../../pom.xml help:evaluate -Dexpression=tomcat.version | grep -v '^\[')"
-  fi
   verifiedVersions="${verifiedVersions}${targetSnapshotVersion} "
-  ./mvnw clean verify -Djacoco.version=0.8.8 -Dspring-boot.version=${targetSnapshotVersion} -Denforcer.skip=true -Dgit-commit.plugin=4.9.9 -Dformatter.plugin=2.16.0 ${options} && ./mybatis-spring-boot-samples/run_fatjars.sh && exitCode=0 || exitCode=$?
+  ./mvnw clean verify -Dspring-boot.version=${targetSnapshotVersion} -Denforcer.skip=true ${options} && ./mybatis-spring-boot-samples/run_fatjars.sh && exitCode=0 || exitCode=$?
   if [ "${exitCode}" = "0" ]; then
     successedVersions="${successedVersions}${targetSnapshotVersion} "
   else
