@@ -48,7 +48,7 @@ for targetSnapshotVersion in ${snapshotVersions}; do
     git checkout 2.1.x
   fi
   verifiedVersions="${verifiedVersions}${targetSnapshotVersion} "
-  ./mvnw clean verify -Dspring-boot.version=${targetSnapshotVersion} ${options} && ./mybatis-spring-boot-samples/run_fatjars.sh && exitCode=0 || exitCode=$?
+  ./mvnw clean verify -Dspring-boot.version=${targetSnapshotVersion} -Denforcer.skip=true ${options} && ./mybatis-spring-boot-samples/run_fatjars.sh && exitCode=0 || exitCode=$?
   if [ "${exitCode}" = "0" ]; then
     successedVersions="${successedVersions}${targetSnapshotVersion} "
   else
