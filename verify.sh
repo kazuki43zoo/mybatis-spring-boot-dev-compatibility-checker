@@ -41,14 +41,14 @@ pushd spring-boot-starter || exit
 
 for targetSnapshotVersion in ${snapshotVersions}; do
   if [[ "${targetSnapshotVersion}" == 3.*.* ]]; then
-    git checkout 3.x
-  elif [[ "${targetSnapshotVersion}" == 2.5.* ]] || [[ "${targetSnapshotVersion}" == 2.6.* ]] || [[ "${targetSnapshotVersion}" == 2.7.* ]] || [[ "${targetSnapshotVersion}" == 3.*.* ]]; then
     git checkout master
+  elif [[ "${targetSnapshotVersion}" == 2.5.* ]] || [[ "${targetSnapshotVersion}" == 2.6.* ]] || [[ "${targetSnapshotVersion}" == 2.7.* ]]; then
+    git checkout 2.3.x
   else
     git checkout 2.1.x
   fi
   verifiedVersions="${verifiedVersions}${targetSnapshotVersion} "
-  ./mvnw clean verify -Dspring-boot.version=${targetSnapshotVersion} -Denforcer.skip=true ${options} && ./mybatis-spring-boot-samples/run_fatjars.sh && exitCode=0 || exitCode=$?
+  ./mvnw clean verify -Dspring-boot.version=${targetSnapshotVersion} ${options} && ./mybatis-spring-boot-samples/run_fatjars.sh && exitCode=0 || exitCode=$?
   if [ "${exitCode}" = "0" ]; then
     successedVersions="${successedVersions}${targetSnapshotVersion} "
   else
