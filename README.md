@@ -18,7 +18,6 @@ Verify a compatibility of development version for mybatis-spring-boot and spring
 
 * master
 * 2.3.x
-* 2.1.x
 
 ## Spring Boot Target Lines
 
@@ -27,4 +26,3 @@ Verify a compatibility of development version for mybatis-spring-boot and spring
 * 2.7.x (stable version)
 * 2.6.x
 * 2.5.x
-* 2.4.x
