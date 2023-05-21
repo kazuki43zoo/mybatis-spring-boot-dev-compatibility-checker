@@ -21,7 +21,7 @@ Verify a compatibility of development version for mybatis-spring-boot and spring
 
 ## Spring Boot Target Lines
 
-* 3.1.x (latest develop version -Not release yet-)
+* 3.1.x (latest develop version)
 * 3.0.x (stable version)
 * 2.7.x (stable version)
 * 2.6.x
