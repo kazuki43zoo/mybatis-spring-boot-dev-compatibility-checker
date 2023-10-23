@@ -20,7 +20,6 @@ END
 }
 
 TARGET_MINOR_VERSIONS=${1}
-JAVA_VERSION=${2}
 
 for targetMinorVersion in ${TARGET_MINOR_VERSIONS}; do
   snapshotVersions="${snapshotVersions}$(getLatestMaintenanceVersion "${targetMinorVersion}")"$'\n'
@@ -42,10 +41,8 @@ pushd spring-boot-starter || exit
 for targetSnapshotVersion in ${snapshotVersions}; do
   if [[ "${targetSnapshotVersion}" == 3.*.* ]]; then
     git checkout master
-  elif [[ "${targetSnapshotVersion}" == 2.5.* ]] || [[ "${targetSnapshotVersion}" == 2.6.* ]] || [[ "${targetSnapshotVersion}" == 2.7.* ]]; then
-    git checkout 2.3.x
   else
-    git checkout 2.1.x
+    git checkout 2.3.x
   fi
   verifiedVersions="${verifiedVersions}${targetSnapshotVersion} "
   ./mvnw clean verify -Dspring-boot.version=${targetSnapshotVersion} -Denforcer.skip=true ${options} && ./mybatis-spring-boot-samples/run_fatjars.sh && exitCode=0 || exitCode=$?
