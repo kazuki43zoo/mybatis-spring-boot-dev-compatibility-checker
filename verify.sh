@@ -45,6 +45,7 @@ for targetSnapshotVersion in ${snapshotVersions}; do
     git checkout 2.3.x
   fi
   verifiedVersions="${verifiedVersions}${targetSnapshotVersion} "
+  options="-Djacoco.plugin=0.8.11"
   ./mvnw clean verify -Dspring-boot.version=${targetSnapshotVersion} -Denforcer.skip=true ${options} && ./mybatis-spring-boot-samples/run_fatjars.sh && exitCode=0 || exitCode=$?
   if [ "${exitCode}" = "0" ]; then
     successedVersions="${successedVersions}${targetSnapshotVersion} "
