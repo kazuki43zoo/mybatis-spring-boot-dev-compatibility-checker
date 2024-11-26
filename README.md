@@ -14,8 +14,8 @@ Verify a compatibility of development version for mybatis-spring-boot and spring
 
 ## MyBatis Spring Boot Target Branches 
 
-* master
-* 2.3.x
+* master (for spring-boot 3)
+* 2.3.x (for spring-boot 2)
 
 ## Spring Boot Target Lines
 
