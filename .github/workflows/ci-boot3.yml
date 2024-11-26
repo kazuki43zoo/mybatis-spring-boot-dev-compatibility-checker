@@ -20,14 +20,8 @@ jobs:
       max-parallel: 6
     steps:
       - uses: actions/checkout@v4
-      - name: Set JDK from jdk.java.net
-        uses: oracle-actions/setup-java@v1
-        with:
-          website: jdk.java.net
-          release: ${{ matrix.java }}
-        if: ${{ matrix.java != '17' }}
-      - name: Set up older JDK
-        uses: actions/setup-java@v3
+      - name: Set up JDK
+        uses: actions/setup-java@v4
         with:
           java-version: ${{ matrix.java }}
           distribution: ${{ matrix.distribution }}
