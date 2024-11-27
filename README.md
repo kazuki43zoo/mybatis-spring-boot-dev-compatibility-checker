@@ -22,6 +22,4 @@ Verify a compatibility of development version for mybatis-spring-boot and spring
 * 3.4.x (latest develop version)
 * 3.3.x (stable version)
 * 3.2.x
-* 3.1.x
-* 3.0.x
 * 2.7.x
