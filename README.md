@@ -11,6 +11,7 @@ Verify a compatibility of development version for mybatis-spring-boot and spring
 
 * Java 17
 * Java 21
+* Java 25
 
 ## MyBatis Spring Boot Target Branches 
 
