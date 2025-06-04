@@ -16,6 +16,13 @@ jobs:
         java: [17, 21, 25-ea]
         distribution: ['temurin']
         spring-boot-version: ['3.2', '3.3', '3.4', '3.5']
+        exclude:
+          - java: 25-ea
+            spring-boot-version: 3.2
+          - java: 25-ea
+            spring-boot-version: 3.3
+          - java: 25-ea
+            spring-boot-version: 3.4
       fail-fast: false
       max-parallel: 6
     steps:
