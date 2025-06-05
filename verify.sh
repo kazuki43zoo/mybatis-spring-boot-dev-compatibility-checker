@@ -39,10 +39,10 @@ git clone https://github.com/mybatis/spring-boot-starter.git
 pushd spring-boot-starter || exit
 
 for targetSnapshotVersion in ${snapshotVersions}; do
-  if [[ "${targetSnapshotVersion}" == 3.*.* ]]; then
-    git checkout master
-  else
+  if [[ "${targetSnapshotVersion}" == 2.*.* ]]; then
     git checkout 2.3.x
+  else
+    git checkout master
   fi
   verifiedVersions="${verifiedVersions}${targetSnapshotVersion} "
   options="-Djacoco.plugin=0.8.11"

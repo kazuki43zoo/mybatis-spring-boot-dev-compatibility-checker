@@ -3,6 +3,7 @@ Verify a compatibility of development version for mybatis-spring-boot and spring
 
 [![CI with Spring Boot 2.x](https://github.com/kazuki43zoo/mybatis-spring-boot-dev-compatibility-checker/actions/workflows/ci-boot2.yml/badge.svg)](https://github.com/kazuki43zoo/mybatis-spring-boot-dev-compatibility-checker/actions/workflows/ci-boot2.yml)
 [![CI with Spring Boot 3.x](https://github.com/kazuki43zoo/mybatis-spring-boot-dev-compatibility-checker/actions/workflows/ci-boot3.yml/badge.svg)](https://github.com/kazuki43zoo/mybatis-spring-boot-dev-compatibility-checker/actions/workflows/ci-boot3.yml)
+[![CI with Spring Boot 4.x](https://github.com/kazuki43zoo/mybatis-spring-boot-dev-compatibility-checker/actions/workflows/ci-boot4.yml/badge.svg)](https://github.com/kazuki43zoo/mybatis-spring-boot-dev-compatibility-checker/actions/workflows/ci-boot3.yml)
 
 * https://github.com/mybatis/spring-boot-starter
 * https://github.com/spring-projects/spring-boot
@@ -15,11 +16,12 @@ Verify a compatibility of development version for mybatis-spring-boot and spring
 
 ## MyBatis Spring Boot Target Branches 
 
-* master (for spring-boot 3)
+* master (for spring-boot 3 and over)
 * 2.3.x (for spring-boot 2)
 
 ## Spring Boot Target Lines
 
+* 4.0.x (next major develop version)
 * 3.5.x (latest develop version)
 * 3.4.x (stable version)
 * 3.3.x (stable version)
