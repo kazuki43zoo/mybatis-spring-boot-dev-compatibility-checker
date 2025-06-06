@@ -1,4 +1,4 @@
-name: CI with Spring Boot 3.x
+name: CI with Spring Boot 4.x
 
 on:
   push:
