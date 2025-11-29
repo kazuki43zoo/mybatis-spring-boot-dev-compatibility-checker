@@ -41,8 +41,8 @@ pushd spring-boot-starter || exit
 for targetSnapshotVersion in ${snapshotVersions}; do
   if [[ "${targetSnapshotVersion}" == 2.*.* ]]; then
     git checkout 2.3.x
-  elif [[ "${targetSnapshotVersion}" == 4.*.* ]]; then
-    git checkout 4.0.x.dev
+  elif [[ "${targetSnapshotVersion}" == 3.*.* ]]; then
+    git checkout 3.0.x
   else
     git checkout master
   fi
