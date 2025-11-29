@@ -13,7 +13,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        java: [17, 21, 25]
+        java: [17, 21, 25, 26-ea]
         distribution: ['temurin']
         spring-boot-version: ['4.0']
       fail-fast: false
